@@ -2,8 +2,6 @@
 
 Selenium is a web testing framework which is used to automate the interaction with a web browser.
 
-Typically Selenium 
-
 ### The Selenium Suite
 
 **Selenium IDE:** 
