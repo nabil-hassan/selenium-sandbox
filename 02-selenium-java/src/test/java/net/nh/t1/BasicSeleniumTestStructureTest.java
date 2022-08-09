@@ -50,8 +50,8 @@ class BasicSeleniumTestStructureTest {
 
     @AfterEach
     void stopWebDriver() {
-        // close the browser and all windows - you can comment this out if you wish the browser to stay open so you can see what happened
-//        webDriver.quit();
+        // close the browser and all windows - you can comment this statement out if you wish the browser to stay open after the test
+        webDriver.quit();
     }
 
     // ====================================================================================================
@@ -62,24 +62,6 @@ class BasicSeleniumTestStructureTest {
         // the get method opens a new browser window
         webDriver.get("https://automationintesting.online");
 
-        // the web page under test requires you to click a button to access the initial booking form
-        webDriver.findElement(By.cssSelector("#collapseBanner > div > div:nth-child(3) > div.col-2.text-center > button")).click();
-
-        // enter form data
-        webDriver.findElement(By.id("name")).sendKeys("Nabil Hassan");
-        webDriver.findElement(By.id("email")).sendKeys("nabil.hassan@faker.com");
-        webDriver.findElement(By.id("phone")).sendKeys("07909909909");
-        webDriver.findElement(By.id("subject")).sendKeys("Let me go");
-        webDriver.findElement(By.id("description")).sendKeys("I would like to use this form in a Selenium test");
-
-        // submit the form
-        webDriver.findElement(By.id("submitContact")).click();
-
-        // verify we got a message that indicates we were successful in our booking
-        var successMessageLookup = webDriver.findElements(By.cssSelector("div.col-sm-5:nth-child(2) > div:nth-child(1) > h2:nth-child(1)"));
-        assertFalse(successMessageLookup.isEmpty(), "Unable to find confirmation message.");
-        assertEquals(1, successMessageLookup.size(), "More than one elements found using confirmation message CSS selector");
-        assertEquals("Thanks for getting in touch Nabil Hassan!", successMessageLookup.get(0).getText());
+        System.out.println(webDriver.getTitle());
     }
-
 }
