@@ -34,7 +34,8 @@ public class PageObjectModelTest {
 
     @AfterEach
     void tearDown() {
-//        webDriver.quit();
+//   shuts the browser, uncomment when required
+//   webDriver.quit();
     }
 
     @Test
