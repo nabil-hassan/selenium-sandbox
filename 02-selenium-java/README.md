@@ -11,6 +11,8 @@ of using the Selenium Web Driver.
 
   * [Basic Selenium Test Structure](src/test/java/net/nh/t1/BasicSeleniumTestStructureTest.java) - outlines how to lay out a test class.
   * [Element Locators](src/test/java/net/nh/t2/ElementLocatorsTest.java) - details how to use the various element locator expressions.
+  * [Interacting With Elements](src/test/java/net/nh/t3/InteractingWithPageTest.java) - shows how to interact with various page elements.
+  * [Page Object Model](src/test/java/net/nh/t4/PageObjectModelTest.java) - illustrates how to implement the Page Object Model in your tests
 
 ## Important!!!!!
 
@@ -38,11 +40,11 @@ static void setupAll() {
 
 ## Opening a page and checking the title
 
-Use webDriver.get() to retrieve the 
+Use webDriver.get() to open the browser and `getTitle()` to return the title.
 
 ```java
 // open a new browser window at the url
-webDriver.get(url);
+webDriver.get("url");
 
 // retrieve the title
 webDriver.getTitle();
@@ -123,7 +125,27 @@ webDriver.findElement(By.xpath("/html/body/div/div/div/div[4]/div/div/div[3]/h3"
 webDriver.findElement(By.linkText("Mark Winteringham"));
 ```
 
-## Entering Input
+### Locating radio buttons
+
+Radio buttons are bound to a radio button group when they share the same value for the `name` attribute:
+
+Below, the buttons have the name `gender`, thus belong to the same group.
+
+```html
+<form>
+    <input id="genderMale" name="gender" value="Male" type="radio">
+    <input id="genderFemale" name="gender" value="Female" type="radio">
+</form>
+```
+
+In this instance, the buttons have unique ids, but if this is not the case, we can use a CSS selector, based on the name of the 
+radio button group, and the value of the radio button.
+
+```java
+webDriver.findElement(By.cssSelector("input[name='gender'][value='Male']")).click();
+```
+
+## Interacting With Elements
 
 The findElement method returns a `WebElement` object, which has the following methods for interaction:
 
@@ -133,7 +155,7 @@ The findElement method returns a `WebElement` object, which has the following me
 webDriver.findElement(By.id("submitBtn")).click();
 ```
 
-  * `.sendKeys()` - used to enter input
+  * `.sendKeys()` - used to enter input into a text box etc
 
 ```java
 webDriver.findElement(By.id("name")).sendKeys("Nabil Hassan");
@@ -192,3 +214,18 @@ webDriver.findElement(By.id("consent")).isEnabled();
 ```java
 webDriver.findElement(By.id("consent")).isEnabled();
 ```
+
+### Interacting With Dropdown boxes
+
+Dropdown boxes are modelled as `<select>` elements
+
+```html
+
+```
+
+To locate and interact with them in Selenium, we must wrap our call to `driver.findElement()` in a new `Select` object, like so:
+
+```java
+
+```
+

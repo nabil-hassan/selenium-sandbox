@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example form for Selenium</title>
+    <style>
+        label {
+            font-family: Verdana, serif;
+            margin-right: 2em
+        }
+
+        p {
+            font-family: Verdana, serif;
+            margin-right: 2em
+        }
+    </style>
+</head>
+
+<body>
+<form id="theForm" onsubmit="return validateForm()">
+
+    <!-- Simple text box -->
+    <label for="nameTxt">Name:</label>
+    <input id="nameTxt" type="text">
+    <br/><br/>
+
+    <!-- Radio buttons -->
+    <label for="genderMale">Male:</label>
+    <input id="genderMale" name="gender" value="Male" type="radio">
+    <label for="genderFemale">Female:</label>
+    <input id="genderFemale" name="gender" value="Female" type="radio">
+    <br/><br/>
+
+    <!-- Dropdown list -->
+    <label for="professionCbx">Profession:</label>
+    <select id="professionCbx" onChange="combo(this, 'box)">
+        <option>Teacher</option>
+        <option>Doctor</option>
+        <option>Policeman</option>
+    </select>
+    <br/><br/>
+
+    <label for="smsCbx">Opt in for SMS:</label>
+    <input type="checkbox" id="smsCbx" value="Sms">
+
+    <label for="emailCbx">Opt in for Email:</label>
+    <input type="checkbox" id="emailCbx" value="Email">
+
+    <br/><br/>
+    <input type="submit" id="submitBtn" value="OK">
+</form>
+
+<p id="submitMessage"></p>
+</body>
+
+
+<script>
+    document.getElementById("theForm").reset();
+
+    function validateForm() {
+        document.getElementById("submitMessage").innerHTML = "";
+
+        let name = document.forms["theForm"]["nameTxt"].value;
+        let profession = document.forms["theForm"]["professionCbx"].value;
+        let gender = document.querySelector('input[name="gender"]:checked');
+        gender = (gender != null) ? gender.value : 'Unknown';
+
+        if (name === "") {
+            document.getElementById("submitMessage").innerHTML = "Name is mandatory";
+            document.getElementById("submitMessage").style.color = 'red';
+            return false;
+        }
+
+        if (gender === "Unknown") {
+            document.getElementById("submitMessage").innerHTML = "Gender is mandatory";
+            document.getElementById("submitMessage").style.color = 'red';
+            return false;
+        }
+
+        document.getElementById("submitMessage").innerHTML = "You are a " + gender + ", named " + name + " and you are a " + profession;
+        document.getElementById("submitMessage").style.color = 'black';
+        return false;
+    }
+</script>
+</html>
